@@ -15,11 +15,21 @@ body {
 * {
   box-sizing: border-box;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0px;
+  padding: 0px;
+}
 /**** Main ****/
 
 main {
   display: grid;
-  grid-template-rows: 90px 60px 320px 30px 220px;
+  grid-template-rows: 90px 60px 320px 20px 220px;
   grid-template-columns: 1fr;
   grid-template-areas:
     '.'
@@ -40,6 +50,10 @@ main {
 }
 img {
   width: 750px;
+}
+
+.info {
+  grid-area: form;
 }
 
 form {
@@ -88,11 +102,12 @@ form {
   border: 1px solid #78a2f2;
 }
 
-form > h2 {
+.info > h2 {
   font-size: 28px;
 }
 
-form > h2 > span {
+.info > p {
+  font-size: 28px;
   color: #558aef;
 }
 

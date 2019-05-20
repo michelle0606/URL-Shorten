@@ -11,7 +11,10 @@ html(lang="en")
       div(class="title") URL Shortener
       div(class="picture")
         img(src="/image/url.png", alt="連結圖片")
-      form(action="/" method="POST")
-        h2 Link shortening successful! Visit your website at 
-          span localhost:3000/#{shortenUrl}
+      div(class="info")
+        h2 Link shortening successful!
+        h2 If you open this website with Heroku, visit it at 
+        p https://intense-tor-31007.herokuapp.com/#{shortenUrl}
+        h2 If you open this website with localhost, visit it at 
+        p localhost:3000/#{shortenUrl}
         
