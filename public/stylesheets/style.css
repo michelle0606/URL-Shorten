@@ -1,0 +1,105 @@
+/***** Basic setting ****/
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
+  line-height: 1.42857143;
+}
+
+* {
+  box-sizing: border-box;
+}
+/**** Main ****/
+
+main {
+  display: grid;
+  grid-template-rows: 90px 60px 320px 30px 220px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    '.'
+    'title'
+    'picture'
+    '.'
+    'form';
+  text-align: center;
+}
+
+.title {
+  grid-area: title;
+  font-size: 30px;
+}
+
+.picture {
+  grid-area: picture;
+}
+img {
+  width: 750px;
+}
+
+form {
+  grid-area: form;
+  display: grid;
+  grid-template-rows: 40px 15px 20px 50px 80px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'input'
+    'feedback'
+    '.'
+    'button'
+    '.';
+}
+
+.form-input {
+  grid-area: input;
+}
+
+.feedback {
+  grid-area: feedback;
+  padding-top: 3px;
+}
+
+.form-input > input {
+  width: 700px;
+  font-size: 18px;
+  padding: 10px 14px;
+  border-radius: 5px;
+}
+
+.normal {
+  border: 1px solid #e6e8eb;
+}
+
+.form-button {
+  grid-area: button;
+}
+
+.form-button > button {
+  padding: 12px;
+  width: 250px;
+  font-size: 18px;
+  border-radius: 5px;
+  color: #78a2f2;
+  border: 1px solid #78a2f2;
+}
+
+form > h2 {
+  font-size: 28px;
+}
+
+form > h2 > span {
+  color: #558aef;
+}
+
+.red {
+  border: 1px solid red;
+}
+
+.red-word {
+  color: red;
+}
