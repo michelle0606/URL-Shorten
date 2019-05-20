@@ -6,7 +6,10 @@ const generator = require('./generator')
 const db = mongoose.connection
 const Url = require('./models/url')
 
-mongoose.connect('mongodb://localhost/url', { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/url', {
+  useNewUrlParser: true,
+  useCreateIndex: true
+})
 
 db.on('error', () => {
   console.log('mongodb error!')
@@ -69,6 +72,6 @@ app.get('/:url', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('running!')
 })
