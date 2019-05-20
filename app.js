@@ -43,13 +43,17 @@ app.post('/', (req, res) => {
 })
 
 app.get('/done', (req, res) => {
+  res.render('done')
+})
+
+app.get('/api', (req, res) => {
   Url.findOne()
     .sort({ date: -1 })
     .limit(1)
     .exec()
     .then(data => {
       const shortenUrl = data.shortenUrl
-      res.render('done', { shortenUrl })
+      res.send(shortenUrl)
     })
     .catch(err => {
       console.log(err)
