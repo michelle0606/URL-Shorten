@@ -28,25 +28,25 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  const shortenUrl = generator()
   const originalUrl = req.body.url
   const date = new Date()
-  const url = Url({
-    originalUrl: originalUrl,
-    shortenUrl: shortenUrl,
-    date: date
-  })
-  url.save(err => {
-    if (err) return console.log(err)
+  async function wait() {
+    const shortenUrl = await generator()
+    Url.create({
+      originalUrl: originalUrl,
+      shortenUrl: shortenUrl,
+      date: date
+    })
     return res.redirect('/done')
-  })
+  }
+  wait()
 })
 
 app.get('/done', (req, res) => {
   res.render('done')
 })
 
-app.get('/api', (req, res) => {
+app.get('/api/last', (req, res) => {
   Url.findOne()
     .sort({ date: -1 })
     .limit(1)
@@ -58,6 +58,13 @@ app.get('/api', (req, res) => {
     .catch(err => {
       console.log(err)
     })
+})
+
+app.get('/api', (req, res) => {
+  Url.findOne().then(data => {
+    const shortenUrl = data.shortenUrl
+    res.send(shortenUrl)
+  })
 })
 
 app.get('/:url', (req, res) => {
