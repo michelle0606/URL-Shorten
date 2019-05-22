@@ -22,9 +22,11 @@ const generateShortUrl = async () => {
   const duplicateUrls = await Url.find({ shortenUrl: shortUrl })
   isDuplicate = duplicateUrls.length > 0
 
-  while (isDuplicate === true) {
+  if (isDuplicate === true) {
     return generateShortUrl()
+  } else {
+    return shortUrl
   }
-  return shortUrl
 }
+
 module.exports = generateShortUrl
