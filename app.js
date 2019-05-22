@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const originalUrl = req.body.url
   const date = new Date()
-  async function wait() {
+  async function createUrl() {
     const shortenUrl = await generator()
     Url.create({
       originalUrl: originalUrl,
@@ -39,7 +39,7 @@ app.post('/', (req, res) => {
     })
     return res.redirect('/done')
   }
-  wait()
+  createUrl()
 })
 
 app.get('/done', (req, res) => {
@@ -58,13 +58,6 @@ app.get('/api/last', (req, res) => {
     .catch(err => {
       console.log(err)
     })
-})
-
-app.get('/api', (req, res) => {
-  Url.findOne().then(data => {
-    const shortenUrl = data.shortenUrl
-    res.send(shortenUrl)
-  })
 })
 
 app.get('/:url', (req, res) => {
