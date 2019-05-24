@@ -12,6 +12,8 @@ html(lang="en")
       div(class="picture")
         img(src="/image/url.png", alt="連結圖片")
       div(class="info")
+        h2 Link shortening successful! Visit your website at 
+          a(href=`${originalUrl}`)  #{baseUrl}/#{shortenUrl}
     script(src="https://unpkg.com/axios/dist/axios.min.js")
     script(src="/javascripts/info.js")
     script(src="https://unpkg.com/axios/dist/axios.min.js")

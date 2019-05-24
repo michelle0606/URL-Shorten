@@ -1,7 +1,6 @@
 const input = document.getElementById('url')
 const form = document.forms[0]
 const feedback = document.querySelector('.feedback')
-const info = document.querySelector('.info')
 
 // 表單空值送出時的提醒
 form.addEventListener('submit', () => {
@@ -16,7 +15,7 @@ form.addEventListener('submit', () => {
     feedback.classList.add('red-word')
   } else {
     form.submit()
-    window.location('/done')
+    return window.location('/generate')
   }
 })
 

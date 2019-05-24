@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const generator = require('./generator')
 const db = mongoose.connection
 const Url = require('./models/url')
 
@@ -27,54 +26,48 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.post('/', (req, res) => {
-  const originalUrl = req.body.url
-  const date = new Date()
-  async function createUrl() {
-    const shortenUrl = await generator()
-    Url.create({
-      originalUrl: originalUrl,
-      shortenUrl: shortenUrl,
-      date: date
-    })
-    return res.redirect('/done')
-  }
-  createUrl()
-})
-
-app.get('/done', (req, res) => {
-  res.render('done')
-})
-
-app.get('/api/last', (req, res) => {
-  Url.findOne()
-    .sort({ date: -1 })
-    .limit(1)
-    .exec()
-    .then(data => {
-      const shortenUrl = data.shortenUrl
-      res.send(shortenUrl)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+app.get('/generate', (req, res) => {
+  const shortenUrl = getRandomUrl()
+  Url.findOne({ shortenUrl }).then(data => {
+    if (data) return res.redirect('/generate')
+    else {
+      const baseUrl = process.env.shortenUrl || 'http:localhost:3000'
+      const newUrl = baseUrl + shortenUrl
+      Url.create({
+        originalUrl: req.query.url,
+        shortenUrl: shortenUrl,
+        newUrl: newUrl
+      }).then(() => {
+        return res.render('done', {
+          originalUrl: req.query.url,
+          shortenUrl,
+          baseUrl
+        })
+      })
+    }
+  })
 })
 
 app.get('/:url', (req, res) => {
-  const newUrl = req.params.url
-  Url.find()
+  const shortenUrl = req.params.url
+  Url.findOne({ shortenUrl })
     .then(data => {
-      const page = data.filter(x => x.shortenUrl === newUrl)
-      return page
-    })
-    .then(page => {
-      const originalUrl = page[0].originalUrl
-      res.redirect(`${originalUrl}`)
+      res.redirect(`${data.originalUrl}`)
     })
     .catch(error => {
       console.log(error)
     })
 })
+
+const getRandomUrl = () => {
+  const word = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+  let url = ''
+  for (let i = 0; i < 5; i++) {
+    const index = Math.floor(Math.random() * word.length)
+    url += word[index]
+  }
+  return url
+}
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('running!')

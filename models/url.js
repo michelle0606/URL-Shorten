@@ -10,8 +10,8 @@ const urlSchema = new Schema({
     type: String,
     required: true
   },
-  date: {
-    type: Date,
+  newUrl: {
+    type: String,
     required: true
   }
 })

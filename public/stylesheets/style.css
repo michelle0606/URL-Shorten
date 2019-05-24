@@ -106,7 +106,7 @@ form {
   font-size: 28px;
 }
 
-.info > h2 > span {
+.info > h2 > a {
   font-size: 28px;
   color: #558aef;
 }
