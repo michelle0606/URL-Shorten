@@ -11,7 +11,7 @@ html(lang="en")
       div(class="title") URL Shortener
       div(class="picture")
         img(src="/image/url.png", alt="url picture")
-      form(action="/" method="POST")
+      form(action="/" method="POST" novalidate)
         div(class='form-input')
           input(type="text" name="url" id="url" class="normal" placeholder="e.g. https://www.google.com/" required)
           div(class="feedback")
